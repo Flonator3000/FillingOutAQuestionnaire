@@ -1,0 +1,23 @@
+<form [formGroup]="questionForm"
+      *ngIf="!questionnaireFinished"
+      class="questionForm">
+  <div *ngFor="let question of questions; let i = index">
+    <label>{{question.value}}</label>
+    <div *ngFor="let option of question.options">
+      <input type="radio" [value]="option" [formControlName]="'question' + (i+1)"> {{option.value}}
+    </div>
+  </div>
+  <div>
+    <button mat-button
+            color="primary"
+            (click)="questionnaireFinished = true"
+            [disabled]="isShowScoreButtonDisabled()"
+    >Show my score...
+    </button>
+  </div>
+</form>
+
+<app-scoreboard *ngIf="questionnaireFinished"
+                [questions]="questions"
+                [answers]="getAnswers()">
+</app-scoreboard>

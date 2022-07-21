@@ -1,0 +1,23 @@
+<div class="scoreboard">
+  <div>{{correctAnswersCount}} out of {{totalQuestionsCount}} questions answered correctly ({{correctAnswersPercentage}}
+    %)
+  </div>
+
+  <div *ngFor="let question of questions">
+    <div>{{question.value}}</div>
+    <ng-container *ngIf="questionAnsweredCorrectly(question.id); else notCorrect">
+      <div class="indented-text">{{getAnswerCorrectText(question.id)}}</div>
+    </ng-container>
+    <ng-template #notCorrect>
+      <div class="indented-text">{{getAnswerNotCorrectText(question.id)}}</div>
+      <div class="indented-text">{{getCorrectAnswerText(question.id)}}</div>
+    </ng-template>
+  </div>
+  <div>
+    <button mat-button color="primary" (click)="startNewQuestionnaire()">Retry</button>
+  </div>
+</div>
+
+
+
+
